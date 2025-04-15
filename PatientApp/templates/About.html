@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About MediConnect</title>
+    <style>
+        :root {
+            --primary-color: #2c7be5;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --dark-text: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .about-hero {
+            background: linear-gradient(135deg, #2c7be5 0%, #6c5ce7 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+        
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .about-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .about-card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+    
+        footer {
+            background-color: var(--dark-text);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">MediConnect</div>
+            <nav>
+                <a href="{% url 'index' %}" style="margin-right: 20px; color: var(--primary-color); text-decoration: none;">Home</a>
+                <a href="/about/" style="color: var(--primary-color); text-decoration: none;">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="about-hero">
+            <h1>Secure Medical Records Management</h1>
+            <p>Redacting sensitive information while maintaining accessibility for authorized personnel</p>
+        </section>
+
+        <section class="about-content">
+            <div class="about-card">
+                <div class="feature-icon">🔒</div>
+                <h2>Our Mission</h2>
+                <p>To revolutionize healthcare data management by providing a secure platform that automatically redacts sensitive information from medical documents while ensuring authorized medical professionals have access to the information they need.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="feature-icon">🛡️</div>
+                <h2>Privacy First</h2>
+                <p>Using advanced AI and computer vision technologies, we automatically detect and mask sensitive personal information like Aadhar numbers while preserving medical data integrity, ensuring compliance with data protection regulations.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="feature-icon">⚕️</div>
+                <h2>For Healthcare Providers</h2>
+                <p>Doctors can securely access patient medical histories without exposure to unnecessary personal data, streamlining the treatment process while maintaining patient confidentiality.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="feature-icon">📈</div>
+                <h2>Technology Stack</h2>
+                <p>Built with Django, PyMySQL, and powered by YOLO for document processing with Pytesseract for OCR capabilities, ensuring accurate detection and redaction of sensitive information.</p>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MediConnect.</p>
+            <p>Secure medical records management system</p>
+        </div>
+    </footer>
+</body>
+</html>

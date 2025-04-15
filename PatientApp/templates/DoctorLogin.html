@@ -1,0 +1,233 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>MediConnect - Doctor Login</title>
+    <meta name="keywords" content="healthcare, hospital, medical, doctor" />
+    <meta name="description" content="Doctor login portal for MediConnect Healthcare System" />
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Vertical Navigation */
+        .side-nav {
+            width: 220px;
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .side-nav h1 {
+            color: #2c7be5;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+        
+        .side-nav img {
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+        
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: #2c7be5;
+        }
+        
+        .nav-menu .current_page_item a {
+            background-color: #2c7be5;
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h2 {
+            color: #2c7be5;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .login-header img {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #2c7be5;
+            outline: none;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #1a68d1;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 220px);
+            margin-left: 220px;
+        }
+    </style>
+    <script language="javascript">
+        function validate(formObj) {
+            if(formObj.t1.value.length==0) {
+                alert("Please enter username");
+                formObj.t1.focus();
+                return false;
+            }
+            if(formObj.t2.value.length==0) {
+                alert("Please enter password");
+                formObj.t2.focus();
+                return false;
+            }
+            formObj.actionUpdateData.value="update";
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <!-- Vertical Navigation -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo">
+            MediConnect
+        </h1>
+        <ul class="nav-menu">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'AdminLogin' %}">Admin</a></li>
+            <li><a href="{% url 'PatientLogin' %}">Patients</a></li>
+            <li class="current_page_item"><a href="{% url 'DoctorLogin' %}">Doctors</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'Register' %}">New User Signup</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="{% static 'images/doctor-icon.png' %}" alt="Doctor Login">
+                <h2>Doctor Login</h2>
+            </div>
+            
+            {% if data %}
+                <div class="error-message">{{ data|safe }}</div>
+            {% endif %}
+            
+            <form name="frm" method="post" action="DoctorLoginAction" onsubmit="return validate(this);">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="t1" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="t2" placeholder="Enter your password">
+                </div>
+                
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+
+   
+</body>
+</html>

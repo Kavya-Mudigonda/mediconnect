@@ -1,0 +1,203 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>MediConnect - Admin Dashboard</title>
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .side-nav {
+            width: 220px;
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .side-nav h1 {
+            color: #2c7be5;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+        
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: #2c7be5;
+        }
+        
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .admin-header {
+            color:#2c7be5;
+            margin-bottom: 30px;
+        }
+        
+        .data-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #2c7be5;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #1a68d1;
+            transform: translateY(-1px);
+        }
+   
+        
+        .welcome-message {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c7be5;
+        }
+        
+        .welcome-message h2 {
+            color: #000000; /* Added black color */
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vertical Navigation -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo" height="36">
+            Admin Panel
+        </h1>
+        <ul class="nav-menu">
+            <li><a href="{% url 'AdminPatientView' %}" class="current_page_item">View Patients</a></li>
+            <li><a href="{% url 'ViewDoctors' %}">View Doctors</a></li>
+            <li><a href="{% url 'index' %}" style="color: #dc3545;">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        
+        <div class="welcome-message">
+            <h2>Welcome back, Administrator</h2>
+            <p>Here's an overview of your healthcare management system. You can view and manage patients, doctors, and system records from this dashboard.</p>
+        </div>
+        
+        <div class="data-container">
+            {{ data|safe }}
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    /* Add these styles to existing AdminScreen.css */
+    .data-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin: 20px auto;
+        max-width: 1200px;
+    }
+
+    .section-header {
+        color: #2c7be5;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 0.95rem;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        color: #2c7be5;
+        font-weight: 600;
+    }
+
+    tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .aadhar-image {
+        max-width: 120px;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .download-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #2c7be5;
+        color: white !important;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+    }
+
+    .download-btn:hover {
+        background-color: #1a68d1;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+</style>

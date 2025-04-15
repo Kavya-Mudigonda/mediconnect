@@ -1,0 +1,219 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>MediConnect - Doctor Portal</title>
+    <meta name="keywords" content="healthcare, hospital, medical, doctor, patient" />
+    <meta name="description" content="Doctor portal for MediConnect Healthcare Management System" />
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .side-nav {
+            width: 220px;
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .side-nav h1 {
+            color: #2c7be5;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+        
+        .side-nav img {
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+        
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: #2c7be5;
+        }
+        
+        .nav-menu .current_page_item a {
+            background-color: #2c7be5;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 40px;
+        }
+        
+        /* Enhanced Welcome Section */
+        .welcome-container {
+            margin: 20px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-header h1 {
+            color: #2c7be5;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-subtext {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-props {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .prop-card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .prop-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .prop-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .prop-text {
+            color: #555;
+            font-weight: 500;
+        }
+        
+        /* Error Styling */
+        .error-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff3f3;
+            border-left: 4px solid #ff5252;
+            border-radius: 4px;
+        }
+        
+        .error-header {
+            color: #ff5252;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .error-text {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .error-help {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Content Section */
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vertical Navigation -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo">
+            MediConnect
+        </h1>
+        <ul class="nav-menu">
+            <li class="current_page_item"><a href="#">Doctor Dashboard</a></li>
+            <li><a href="{% url 'ViewAppointments' %}">View Appointments</a></li>
+            <li><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% if welcome_message %}
+        <!-- Enhanced Welcome Message -->
+        <div class="welcome-container">
+            <div class="welcome-header">
+                <h1>Welcome, Dr. {{ username }}</h1>
+                <p class="welcome-subtext">{{ message }}</p>
+            </div>
+            <div class="welcome-props">
+                <div class="prop-card">
+                    <div class="prop-icon">👨‍⚕️</div>
+                    <div class="prop-text">Ready to serve patients</div>
+                </div>
+                <div class="prop-card">
+                    <div class="prop-icon">📅</div>
+                    <div class="prop-text">Check your appointments</div>
+                </div>
+                <div class="prop-card">
+                    <div class="prop-icon">💊</div>
+                    <div class="prop-text">Manage prescriptions</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if login_error %}
+        <!-- Error Message -->
+        <div class="error-container">
+            <h3 class="error-header">Login Failed</h3>
+            <p class="error-text">{{ error_message }}</p>
+            <p class="error-help">Please check your credentials and try again</p>
+        </div>
+        {% endif %}
+
+        <!-- Dynamic Content Section -->
+        <div class="content-section">
+            {{ data|safe }}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>MediConnect - Book Appointment</title>
+    <meta name="keywords" content="healthcare, hospital, medical, appointment" />
+    <meta name="description" content="Book appointments with MediConnect Healthcare System" />
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Vertical Navigation - Matches PatientScreen */
+        .side-nav {
+            width: 220px;
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .side-nav h1 {
+            color: #2c7be5;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+        
+        .side-nav img {
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+        
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: #2c7be5;
+        }
+        
+        .nav-menu .current_page_item a {
+            background-color: #2c7be5;
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 40px;
+        }
+        
+        /* Appointment Form */
+        .appointment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .form-title {
+            color: #2c7be5;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1a68d1;
+        }
+    </style>
+    <script language="javascript">
+        function validate(formObj) {
+            if(formObj.t2.value.length==0) {
+                alert("Please Enter disease details");
+                formObj.t2.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <!-- Vertical Navigation -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo">
+            MediConnect
+        </h1>
+        <ul class="nav-menu">
+            <li><a href="{% url 'CreateProfile' %}">Medical Profile</a></li>
+            <li class="current_page_item"><a href="{% url 'BookAppointment' %}">Book Appointments</a></li>
+            <li><a href="{% url 'ViewPrescription' %}">View Prescriptions</a></li>
+            <li><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="appointment-form">
+            <h2 class="form-title">Book Appointment</h2>
+            <form name="frm" method="post" action="AppointmentAction" onsubmit="return validate(this);">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ data|safe }}
+                </div>
+                <div class="form-group">
+                    <label for="disease">Symptoms</label>
+                    <input type="text" id="disease" name="t2" placeholder="Enter Symptoms">
+                </div>
+                <div class="form-group">
+                    <label for="date">Appointment Date</label>
+                    <input type="date" id="date" name="t3">
+                </div>
+                <button type="submit" class="btn-submit">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

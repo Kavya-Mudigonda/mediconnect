@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Generate Prescription</title>
+    <meta name="description" content="Generate prescriptions for patients">
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --primary-color: #2c7be5;
+            --secondary-color: #1a68d1;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: white;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Side Navigation - Updated to match Insurance screen */
+        .side-nav {
+            width: 220px;
+            background-color: var(--light-color);
+            padding: 30px 20px;
+            border-right: 1px solid var(--border-color);
+            height: 100vh;
+            position: fixed;
+        }
+
+        .side-nav h1 {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+
+        .side-nav img {
+            height: 36px;
+            margin-right: 12px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: var(--primary-color);
+        }
+
+        .nav-menu .current_page_item a {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        /* Footer */
+        .app-footer {
+            background-color: var(--light-color);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 220px);
+            margin-left: 220px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .side-nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .app-footer {
+                width: 100%;
+                margin-left: 0;
+                position: relative;
+            }
+        }
+    </style>
+    <script>
+        function validate(formObj) {
+            if(formObj.t2.value.length==0) {
+                alert("Please Enter prescription");
+                formObj.t2.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <!-- Vertical Navigation - Updated to match Insurance screen -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo">
+            MediConnect
+        </h1>
+        <ul class="nav-menu">
+            <li class="current_page_item"><a href="{%url 'GeneratePrescription'%}">Generate Prescriptions</a></li>
+            <li><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="card">
+            <div class="form-header">
+                <h2>Generate Prescription</h2>
+                <p>Enter prescription details for your patient</p>
+            </div>
+            
+            <form name="frm" method="post" action="GeneratePrescriptionAction" onsubmit="return validate(this);">
+                {% csrf_token %}
+                
+                <!-- Display any dynamic data first -->
+                {% if data %}
+                    <div class="form-group">
+                        {{ data|safe }}
+                    </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="prescription" class="form-label">Prescription Details</label>
+                    <textarea id="prescription" name="t2" class="form-control" placeholder="Enter detailed prescription including medications, dosage, and instructions"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Generate Prescription</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>&copy; {% now "Y" %} MediConnect Healthcare System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+

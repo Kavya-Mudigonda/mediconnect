@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Patient Dashboard</title>
+    <meta name="description" content="Patient dashboard for MediConnect Healthcare System">
+    <link href="{% static 'default.css' %}" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c7be5;
+            --primary-hover: #1a68d1;
+            --sidebar-width: 240px;
+            --content-padding: 2rem;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, #2c7be5 0%, #1a68d1 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .brand-logo {
+            height: 40px;
+            margin-right: 12px;
+        }
+        
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .nav-link.active {
+            background-color: white;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: var(--content-padding);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .patient-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-group {
+            margin-bottom: 1rem;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .medical-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            display: block;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Status Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .alert-info {
+            background-color: #e7f5ff;
+            color: #1864ab;
+            border: 1px solid #d0ebff;
+        }
+        
+      
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo" class="brand-logo">
+            <span class="brand-name">MediConnect</span>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="{% url 'CreateProfile' %}" class="nav-link"><span class="nav-icon">📋</span> Medical Profile</a></li>
+                <li class="nav-item"><a href="{% url 'BookAppointment' %}" class="nav-link"><span class="nav-icon">📅</span> Book Appointment</a></li>
+                <li class="nav-item"><a href="{% url 'ViewPrescription' %}" class="nav-link"><span class="nav-icon">💊</span> View Prescriptions</a></li>
+                <li class="nav-item"><a href="{% url 'index' %}" class="nav-link"><span class="nav-icon">🚪</span> Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title">Patient Dashboard</h1>
+		</div>
+		<div>
+            <p class="welcome-message">Welcome back to your health portal</p>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="dashboard-card">
+            <h2 class="card-title">Your Medical Information</h2>
+            <div class="patient-info">
+                {{ data|safe }}
+            </div>
+        </div>
+        
+        
+    </main>
+
+   
+</body>
+</html

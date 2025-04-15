@@ -1,0 +1,166 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>MediConnect -A secure healthcare system</title>
+    <meta name="keywords" content="healthcare, hospital, medical, doctor, patient" />
+    <meta name="description" content="Connecting patients, doctors, and insurance providers for seamless healthcare management" />
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Vertical Navigation - Medium size */
+        .side-nav {
+            width: 220px;
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .side-nav h1 {
+            color: #2c7be5;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+        
+        .side-nav img {
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 16px;
+        }
+        
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #e9f0fd;
+            color: #2c7be5;
+        }
+        
+        .nav-menu .current_page_item a {
+            background-color: #2c7be5;
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), 
+                        url("{% static 'images/hospital-hero.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            text-align: center;
+            padding: 80px 30px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #2c7be5;
+        }
+        
+        .hero-section p {
+            font-size: 1.1rem;
+            margin: 0 auto 25px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #2c7be5;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #1a68d1;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+       
+    </style>
+</head>
+<body>
+    <!-- Vertical Navigation -->
+    <div class="side-nav">
+        <h1>
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect Logo">
+            MediConnect
+        </h1>
+        <ul class="nav-menu">
+            <li class="current_page_item"><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'AdminLogin' %}">Admin</a></li>
+            <li><a href="{% url 'PatientLogin' %}">Patients</a></li>
+            <li><a href="{% url 'DoctorLogin' %}">Doctors</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'Register' %}">New User Signup</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2>Your Health, Our Priority</h2>
+                <p>Connecting patients with healthcare providers for seamless medical experiences. Access your records, schedule appointments, and manage insurance all in one place.</p>
+                <a href="{% url 'Register' %}" class="btn">Get Started</a>
+            </div>
+        </div>
+
+       
+    </div>
+</body>
+</html>
